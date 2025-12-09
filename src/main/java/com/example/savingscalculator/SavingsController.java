@@ -20,19 +20,28 @@ public class SavingsController {
 
     @FXML
     protected void onCalculateButtonClick() {
-        double number1 = Double.parseDouble(costOfItem.getText());
-        double number2 = Double.parseDouble(numberOfMonths.getText());
-        double finalAnswer = number1 / number2;
-        if ( costOfItem.getText().isEmpty() || numberOfMonths.getText().isEmpty() ){
-            calculatedText.setText("A value hasn't been filled out. Make sure to fill all values to get a" +
+        if ( itemName.getText().isEmpty() || costOfItem.getText().isEmpty() || numberOfMonths.getText().isEmpty() ){
+            calculatedText.setText("Values haven't been filled out. Make sure to fill all values to get a " +
                     "calculation!");
 
+        } else if (Double.parseDouble(numberOfMonths.getText()) == 0) {
+            calculatedText.setText("You need to have a month amount greater then zero for a calculation.");
         } else{
+            double number1 = Double.parseDouble(costOfItem.getText());
+            double number2 = Double.parseDouble(numberOfMonths.getText());
+            double finalAnswer = number1 / number2;
             calculatedText.setText("To buy a/an '" + itemName.getText() + "', you need to save $"
                     + finalAnswer + " per month!");
+            calculatedText.setWrapText(true);
+
 
         }
+    }
 
-
+    @FXML
+    protected void onResetButtonClick(){
+        itemName.setText("");
+        costOfItem.setText("");
+        numberOfMonths.setText("");
     }
 }
